@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+        <div>
+            <h3 class="sub-header">指标选择</h3>
+            <form class="nav" style="margin-bottom: 20px" role="search">
+                <input type="text" class="form-control" placeholder="输入关键字查询">
+            </form>
+            <ul class="nav nav-sidebar">
+                <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span>政府基建投资<span class="badge pull-right"><span class="glyphicon glyphicon-plus"></span></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span>其他</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3 class="sub-header">已选指标</h3>
+            <ul class="nav nav-sidebar">
+                <li><a href="#">政府基建投资</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="highCharts">
+
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#highCharts').highcharts({
+            title: {
+                text: '政府基建数据',
+                x: -20 //center
+            },
+
+            xAxis: {
+                categories: ['一月', '二月', '三月', '四月', '五月', '六月',
+                    '七月', '八月', '九月', '十月', '十一月', '十二月']
+            },
+            yAxis: {
+                title: {
+                    text: '亿元'
+                },
+                min:0,
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '亿元'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: '政府基建投资',
+                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+            }]
+        });
+    });
+</script>
