@@ -12,7 +12,8 @@ angular
   .module('financeVisoApp', [
     'ngAnimate',
     'ngResource',
-    'ngRoute'
+    'ngRoute',
+    'angularBootstrapNavTree'
   ])
   .config(function ($routeProvider) {
     $routeProvider
