@@ -1,13 +1,36 @@
 <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
         <div>
-            <h3 class="sub-header">指标选择</h3>
             <form class="nav" style="margin-bottom: 20px" role="search">
-                <input type="text" class="form-control" placeholder="输入关键字查询">
+                <input type="text" class="form-control" placeholder="指标查询">
             </form>
-            <ul class="nav nav-sidebar">
-                <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span>政府基建投资<span class="badge pull-right"><span class="glyphicon glyphicon-plus"></span></span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span>其他</a></li>
+           <ul id="indexTree" class="nav nav-sidebar">
+               <li>
+                    <a data-toggle="collapse" data-parent="indexTree" href="#indexTree li"><span class="caret"></span>宏观</a>
+                    <ul class="collapse">
+                        <!-- 有子指标的需要list-style:none。待统一给class或用angular设置，此处仅demo -->
+                        <li style="list-style:none">
+                            <a href="#"><span class="caret"></span>政府基建投资<span class="glyphicon glyphicon-pencil"></span></a>
+                            <ul>
+                                <li>
+                                    <a href="#">铁路投资<span class="glyphicon glyphicon-pencil"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#">公路投资<span class="glyphicon glyphicon-pencil"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#">水利和公共设施投资<span class="glyphicon glyphicon-pencil"></span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+               </li>
+               <li>
+                   <a href="#"><span class="caret"></span>其他</a>
+                   <ul>
+                       <li><a href="#">子指标一</a></li>
+                   </ul>
+               </li>
             </ul>
         </div>
         <div>
@@ -20,7 +43,6 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="highCharts">
 
     </div>
-</div>
 </div>
 <script type="text/javascript">
     $(function () {
