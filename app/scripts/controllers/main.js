@@ -20,23 +20,11 @@ angular.module('financeVisoApp')
 
             editor.result.then(function(formula){
                 indexService.add(formula);
+                indexService.chart(formula);
             }, function(){
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
 
     }])
-
-    .factory('indexService',function(){
-        var indice = [];
-        var service = {};
-        service.add = function (index){
-          if (indice.indexOf(index) === -1)
-            indice.push(index);
-        };
-        service.get = function(){
-            return indice;
-        };
-        return service;
-    })
 ;
