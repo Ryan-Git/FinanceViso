@@ -7,29 +7,36 @@
  * # MainCtrl
  * Controller of the financeVisoApp
  */
-var app =angular.module('financeVisoApp');
-  app.controller('IndexTreeCtrl', function ($scope) {
-        $scope.indice = [
-            {
-                label: '宏观指标',
-                children:[
-                    {
-                        label:'政府基建投资',
-                        children:['铁路投资','公路投资','水利和公共设施']
-                    }
-                ]
-            },
-            {
-                label:'其他指标',
-                children:['指标一','指标二','指标三']
-            }
-    ];
-  });
+angular.module('financeVisoApp')
+    .controller('MainCtrl', ['$scope','$modal', 'indexService','$log',function ($scope, $modal, indexService, $log) {
+        $scope.indice = indexService.get();
 
-app.controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-        'HTML5 Boilerplate',
-        'AngularJS',
-        'Karma'
-    ];
-});
+        $scope.openEditor = function(){
+            var editor = $modal.open({
+                templateUrl:'views/indexEditor.html',
+                controller:'IndexEditorCtrl',
+                size:'lg'
+            });
+
+            editor.result.then(function(formula){
+                indexService.add(formula);
+            }, function(){
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
+    }])
+
+    .factory('indexService',function(){
+        var indice = [];
+        var service = {};
+        service.add = function (index){
+          if (indice.indexOf(index) === -1)
+            indice.push(index);
+        };
+        service.get = function(){
+            return indice;
+        };
+        return service;
+    })
+;

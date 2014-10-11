@@ -1,15 +1,9 @@
 <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
-        <div ng-controller="IndexTreeCtrl as tree">
-            <form class="nav" style="margin-bottom: 20px" role="search">
-                <input type="text" class="form-control" placeholder="指标查询">
-            </form>
-            <abn-tree tree-data="indice" on-select="my_tree_handler(branch)" initial-selection="政府基建投资"></abn-tree>
-        </div>
         <div>
-            <h3 class="sub-header">已选指标</h3>
+            <button type="button" ng-click="openEditor()">添加指标</button>
             <ul class="nav nav-sidebar">
-                <li><a href="#">政府基建投资</a></li>
+                <li ng-repeat="index in indice"><a href="#">{{index}}</a></li>
             </ul>
         </div>
     </div>

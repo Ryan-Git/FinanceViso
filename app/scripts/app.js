@@ -13,7 +13,8 @@ angular
     'ngAnimate',
     'ngResource',
     'ngRoute',
-    'angularBootstrapNavTree'
+    'angularBootstrapNavTree',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider) {
     $routeProvider

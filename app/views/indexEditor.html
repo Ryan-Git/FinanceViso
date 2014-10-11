@@ -1,0 +1,20 @@
+<div class="modal-header">
+   <h4 class="modal-title" id="indexEditLabel">指标编辑</h4>
+</div>
+<div class="modal-body row">
+    <div class="col-md-4">
+        <form class="nav" style="margin-bottom: 20px" role="search">
+            <input type="text" class="form-control" placeholder="指标查询">
+        </form>
+        <div>
+            <abn-tree tree-data="indice" on-select="my_tree_handler(branch)" initial-selection="铁路投资"></abn-tree>
+        </div>
+    </div>
+    <div class="col-md-8">
+        公式: {{formula}}
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+    <button type="button" class="btn btn-primary" ng-click="ok()">保存</button>
+</div>
