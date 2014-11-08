@@ -8,8 +8,7 @@
  *
  * Main module of the application.
  */
-angular
-  .module('financeVisoApp', [
+angular.module('financeVisoApp', [
     'ngAnimate',
     'ngResource',
     'ngRoute',

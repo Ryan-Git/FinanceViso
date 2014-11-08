@@ -22,30 +22,23 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-
+    <div ng-controller="MainCtrl">
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
           <div class="container-fluid">
-              <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="#">金融可视化</a>
-              </div>
               <div class="navbar-collapse collapse">
-                  <ul class="nav navbar-nav navbar-right">
-                      <li class="active"><a ng-href="#">主页</a></li>
-                      <li><a href="#">选项</a></li>
-                      <li><a href="#/about">关于</a></li>
-                  </ul>
+                  <form class="navbar-form navbar-left" ng-submit="compare()">
+                      <button type="button" class="btn btn-default"  ng-click="openEditor()">函数</button>
+                      <input type="text" class="form-control" placeholder="请输入公式" ng-model="formula" typeahead="index as index.name for index in available">
+                      <button type="button" class="btn btn-default"  ng-click="compare()">新增</button>
+                      <!--<button type="button" class="btn btn-default"  ng-click="">追加</button>-->
+                  </form>
               </div>
           </div>
       </div>
 
-      <div ng-view=""></div>
-
+      <div class="container-fluid" id="highCharts">
+      <!--<div ng-view=""></div>-->
+      </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID
      <script>
@@ -73,11 +66,11 @@
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/highcharts-release/highcharts.js"></script>
-    <script src="bower_components/highcharts-release/highcharts-more.js"></script>
-    <script src="bower_components/highcharts-release/modules/exporting.js"></script>
     <script src="bower_components/angular-bootstrap-nav-tree/dist/abn_tree_directive.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/highstock-release/highstock.js"></script>
+    <script src="bower_components/highstock-release/highcharts-more.js"></script>
+    <script src="bower_components/highstock-release/modules/exporting.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -88,6 +81,8 @@
         <script src="scripts/directives/indexeditor.js"></script>
         <script src="scripts/controllers/indexEditorCtrl.js"></script>
         <script src="scripts/services/indexservice.js"></script>
+        <script src="scripts/services/formulaService.js"></script>
+        <script src="scripts/services/chartService.js"></script>
         <!-- endbuild -->
 </body>
 </html>
