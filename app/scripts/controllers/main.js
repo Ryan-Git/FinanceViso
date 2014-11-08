@@ -18,38 +18,41 @@ angular.module('financeVisoApp')
         ];
 
         $scope.compare = function(){
-            $log.debug('add formula: ' + angular.toJson($scope.formula));
-            formulaService.addAndDraw($scope.formula);
+            $log.debug('add: ' + angular.toJson($scope.formula));
+            var result = formulaService.calculate($scope.formula);
+            result.$promise.then(function(){ //TODO shouldn't be promise here. Finish formulaService
+                chartService.compare(result);
+            });
             $scope.formula = "";
         };
 
         $scope.append = function(){
-            $log.debug('append formula: ' + angular.toJson($scope.formula));
-            var result = formulaService.calculate($scope.formula);//result is a promise with data in it
-            result.then(function(){
-                chartService.addSeries(result);
+            $log.debug('append: ' + angular.toJson($scope.formula));
+            var result = formulaService.calculate($scope.formula);
+            result.$promise.then(function(){//TODO shouldn't be promise here. Finish formulaService
+                chartService.append(result);
             });
             $scope.formula = "";
         };
 
         $scope.removeSeries = function(name){
-            $log.debug('remove series: ' + name);
-            chartService.removeSeries(name);
+            $log.debug('remove: ' + name);
+            chartService.remove(name);
         };
 
-        $scope.openEditor = function(){
-            var editor = $modal.open({
-                templateUrl:'views/indexEditor.html',
-                controller:'IndexEditorCtrl',
-                size:'lg'
-            });
-
-            editor.result.then(function(formula){
-                formulaService.addAndDraw($scope.formula);
-            }, function(){
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-        };
+//        $scope.openEditor = function(){
+//            var editor = $modal.open({
+//                templateUrl:'views/indexEditor.html',
+//                controller:'IndexEditorCtrl',
+//                size:'lg'
+//            });
+//
+//            editor.result.then(function(formula){
+//                formulaService.addAndDraw($scope.formula);
+//            }, function(){
+//                $log.info('Modal dismissed at: ' + new Date());
+//            });
+//        };
 
     }])
 ;

@@ -8,7 +8,7 @@
  * Factory in the financeVisoApp.
  */
 angular.module('financeVisoApp')
-  .factory('formulaService', [ 'indexService', function (indexService) {
+  .factory('formulaService', [ 'indexService','$log', function (indexService, $log) {
     var formulaList = [];
 
     // Public API here
@@ -23,7 +23,8 @@ angular.module('financeVisoApp')
                 var index = indexService.get(formula); //should be index here. Now it's an index
                 //should get more indices
                 //calculate
-                return index.$promise;
+                $log.debug('calculated result is:' + angular.toJson(index));
+                return index; //return result
             }
         }
     };
