@@ -8,7 +8,7 @@
  * Factory in the financeVisoApp.
  */
 angular.module('financeVisoApp')
-  .factory('formulaService', [ 'indexService', 'chartService', function (indexService, chartService) {
+  .factory('formulaService', [ 'indexService', function (indexService) {
     var formulaList = [];
 
     // Public API here
@@ -17,15 +17,13 @@ angular.module('financeVisoApp')
           return formulaList;
         },
 
-        addAndDraw: function (formula){
+        calculate: function (formula){
             if (formulaList.indexOf(formula) === -1) {
                 //TODO get each index via indexService and calculate the result
                 var index = indexService.get(formula); //should be index here. Now it's an index
                 //should get more indices
                 //calculate
-                index.$promise.then(function(){
-                    chartService.addSeries(index);//should be calculate result here
-                });
+                return index.$promise;
             }
         }
     };

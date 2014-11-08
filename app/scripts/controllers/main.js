@@ -23,6 +23,15 @@ angular.module('financeVisoApp')
             $scope.formula = "";
         };
 
+        $scope.append = function(){
+            $log.debug('append formula: ' + angular.toJson($scope.formula));
+            var result = formulaService.calculate($scope.formula);//result is a promise with data in it
+            result.then(function(){
+                chartService.addSeries(result);
+            });
+            $scope.formula = "";
+        };
+
         $scope.removeSeries = function(name){
             $log.debug('remove series: ' + name);
             chartService.removeSeries(name);
