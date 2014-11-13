@@ -9,17 +9,10 @@
  */
 angular.module('financeVisoApp')
   .factory('chartService', ['$log', function ($log) {
+    var chart;
     function initChart(formula){
         //the first chart
-        $('#highCharts').highcharts('StockChart', {
-            title: {
-                text: '自定义图表'
-            },
-            subtitle:{
-                align: 'left',
-                text: formula.name + '<a href="javascript:void(0);" onclick="removeSeries(\''+formula.name+'\')"><span class="glyphicon glyphicon-remove"></span></a><br/>',
-                useHTML: true
-            },
+        chart = $('#highCharts').highcharts('StockChart', {
             rangeSelector:{
                 selected: 4
             },
@@ -44,14 +37,12 @@ angular.module('financeVisoApp')
                 data: formula.data
             }]
         });
-    };
-
+    }
     // Public API here
     return {
-
         remove: function (formula){
-            var chart = $('#highCharts').highcharts();
             var name = formula.name;
+            $log.debug('chart to be removed: ', name);
             chart.get(name).remove();
             if (chart.series.length === 1){
                 chart.series[0].setCompare(null);
@@ -62,7 +53,6 @@ angular.module('financeVisoApp')
 
         compare: function (formula){
             $log.debug('chart compare: ', angular.toJson(formula));
-            var chart = $('#highCharts').highcharts();
             if (typeof(chart) == 'undefined'){
                 initChart(formula);
             } else{
@@ -75,19 +65,12 @@ angular.module('financeVisoApp')
                     s.setCompare('percent');
                 });
                 chart.yAxis[0].setCompare('percent');
-                var originalSubTitle = chart.subtitle.textStr;
-                chart.setTitle(null, {
-                    align: 'left',
-                    text: originalSubTitle + formula.name + '<a href="javascript:void(0);" onclick="removeSeries(\''+formula.name+'\')"><span class="glyphicon glyphicon-remove"></span></a><br/>',
-                    useHTML: true
-                });
                 chart.redraw();
             }
         },
 
         append: function(formula){
             $log.debug('chart append: ', angular.toJson(formula));
-            var chart = $('#highCharts').highcharts();
             if (typeof(chart) == 'undefined'){
                 initChart(formula);
             } else{

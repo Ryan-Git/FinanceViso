@@ -40,19 +40,19 @@ angular.module('financeVisoApp')
             chartService.remove(name);
         };
 
-//        $scope.openEditor = function(){
-//            var editor = $modal.open({
-//                templateUrl:'views/indexEditor.html',
-//                controller:'IndexEditorCtrl',
-//                size:'lg'
-//            });
-//
-//            editor.result.then(function(formula){
-//                formulaService.addAndDraw($scope.formula);
-//            }, function(){
-//                $log.info('Modal dismissed at: ' + new Date());
-//            });
-//        };
+        $scope.openEditor = function(){
+            var editor = $modal.open({
+                templateUrl:'views/indexEditor.html',
+                controller:'IndexEditorCtrl',
+                size:'lg'
+            });
+
+            editor.result.then(function(formula){
+                formulaService.addAndDraw($scope.formula);
+            }, function(){
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
 
     }])
 ;
