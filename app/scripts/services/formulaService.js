@@ -9,7 +9,7 @@
  */
 angular.module('financeVisoApp')
   .factory('formulaService', [ 'indexService','$log', function (indexService, $log) {
-    var formulaList = [];
+    var formulaList = [{expression: '', data:[]}];
 
     // Public API here
     return {
@@ -18,14 +18,14 @@ angular.module('financeVisoApp')
         },
 
         calculate: function (formula){
-            if (formulaList.indexOf(formula) === -1) {
-                //TODO get each index via indexService and calculate the result
-                var index = indexService.get(formula); //should be index here. Now it's an index
-                //should get more indices
-                //calculate
-                $log.debug('calculated result is:' + angular.toJson(index));
-                return index; //return result
-            }
+            //TODO get each index via indexService and calculate the result
+            var index = indexService.get(formula.expression); //should be expression here. Now it's an index
+            //should get more indices
+            //calculate
+            return index.$promise.then(function(){ //return the final promise
+                formula.data = index.data; //add final data to formula
+                $log.debug('calculated result is:' + angular.toJson(formula));
+            });
         }
     };
   }]);

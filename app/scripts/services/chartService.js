@@ -10,9 +10,9 @@
 angular.module('financeVisoApp')
   .factory('chartService', ['$log', function ($log) {
     var chart;
-    function initChart(formula){
+    function initChart(data, id){
         //the first chart
-        chart = $('#highCharts').highcharts('StockChart', {
+        $('#highCharts').highcharts('StockChart', {
             rangeSelector:{
                 selected: 4
             },
@@ -27,58 +27,54 @@ angular.module('financeVisoApp')
             },
             yAxis:[
                 {
-//                    height: '60%',
                     lineWidth: 2
                 }
             ],
             series:[{
-                id: formula.name,
-                name: formula.name,
-                data: formula.data
+                id: id,
+                data: data
             }]
         });
+        chart =  $('#highCharts').highcharts();
     }
     // Public API here
     return {
-        remove: function (formula){
-            var name = formula.name;
-            $log.debug('chart to be removed: ', name);
-            chart.get(name).remove();
-            if (chart.series.length === 1){
-                chart.series[0].setCompare(null);
-                chart.yAxis[0].setCompare(null);
+        remove: function (id){
+            $log.debug('chart to be removed: ', id);
+            chart.get(id).remove();
+            if (chart.get('yAxis' + id))
+                chart.get('yAxis' + id).remove();
+            if ( chart.yAxis.length === 2){
+              chart.yAxis[0].update({
+                height: '100%'
+              }, true);
             }
             chart.redraw();
         },
 
-        compare: function (formula){
-            $log.debug('chart compare: ', angular.toJson(formula));
+        compare: function (data, id){
+            $log.debug('chart compare: ', angular.toJson(id));
             if (typeof(chart) == 'undefined'){
-                initChart(formula);
+                initChart(data, id);
             } else{
                 chart.addSeries({
-                    id: formula.name,
-                    name: formula.name,
-                    data: formula.data
+                    id: id,
+                    data: data
                 });
-                $.each(chart.series,function(i, s){
-                    s.setCompare('percent');
-                });
-                chart.yAxis[0].setCompare('percent');
                 chart.redraw();
             }
         },
 
-        append: function(formula){
-            $log.debug('chart append: ', angular.toJson(formula));
+        append: function(data, id){
+            $log.debug('chart append: ', angular.toJson(data));
             if (typeof(chart) == 'undefined'){
-                initChart(formula);
+                initChart(data, id);
             } else{
                 chart.yAxis[0].update({
                     height: '60%'
                 }, true);
                 chart.addAxis({
-                    id: formula.name,
+                    id: 'yAxis' + id,
                     top: '65%',
                     height: '35%',
                     offset: 0,
@@ -86,14 +82,31 @@ angular.module('financeVisoApp')
                     opposite: true
                 });
                 chart.addSeries({
-                    id: formula.name,
+                    id: id,
                     type: 'column',
-                    name: formula.name,
-                    data: formula.data,
-                    yAxis: formula.name
+                    data: data,
+                    yAxis: 'yAxis' + id
                 });
             }
             chart.redraw();
+        },
+
+        number: function(){
+          $.each(chart.series,function(i, s){
+            s.setCompare('value');
+          });
+          $.each(chart.yAxis, function(i, axis){
+            axis.setCompare('value');
+          });
+        },
+
+        percent: function(){
+          $.each(chart.series,function(i, s){
+              s.setCompare('percent');
+          });
+          $.each(chart.yAxis, function(i, axis){
+            axis.setCompare('percent');
+          });
         }
     };
   }]);
