@@ -8,7 +8,7 @@
  * Controller of the financeVisoApp
  */
 angular.module('financeVisoApp')
-  .controller('IndexEditorCtrl', ['$scope', '$modalInstance', 'indexService', function ($scope, $modalInstance, indexService) {
+  .controller('IndexEditorCtrl', ['$scope', '$modalInstance', '$rootScope', 'indexService', function ($scope, $modalInstance, $rootScope, indexService) {
         $scope.indice = [
             {
                 label: '宏观指标',
@@ -27,6 +27,7 @@ angular.module('financeVisoApp')
 
         $scope.my_tree_handler = function(branch){
             $scope.formula = branch.label;
+            $rootScope.$broadcast('insert', $scope.formula);
         };
 
         $scope.ok = function(){
