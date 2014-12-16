@@ -41,15 +41,15 @@ angular.module('financeVisoApp')
             $scope.formulaList.splice($.inArray(formula,$scope.formulaList),1);
         };
 
-        $scope.openEditor = function(){
+        $scope.openEditor = function(formula){
             var editor = $modal.open({
                 templateUrl:'views/indexEditor.html',
                 controller:'IndexEditorCtrl',
                 size:'lg'
             });
 
-            editor.result.then(function(formula){
-              $scope.compare(formula);
+            editor.result.then(function(data){
+              formula += data;
             }, function(){
                 $log.info('Modal dismissed at: ' + new Date());
             });
