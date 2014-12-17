@@ -16,8 +16,8 @@ angular.module('financeVisoApp')
       $scope.$apply();
     });
 
-    $scope.ok = function(){
-            $modalInstance.close($scope.root);
+    $scope.ok = function(name){
+            $modalInstance.close(name);
         };
 
     $scope.cancel = function(){

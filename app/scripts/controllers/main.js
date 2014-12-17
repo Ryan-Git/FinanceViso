@@ -49,7 +49,7 @@ angular.module('financeVisoApp')
             });
 
             editor.result.then(function(data){
-              formula += data;
+              formula.expression += data;
             }, function(){
                 $log.info('Modal dismissed at: ' + new Date());
             });
