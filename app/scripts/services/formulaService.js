@@ -10,7 +10,7 @@
 angular.module('financeVisoApp')
   .factory('formulaService', [ 'indexService','$log', function (indexService, $log) {
     var formulaList = [{expression: '', data:[]}];
-
+    var keywords = ['+', '-', '*', '/'];
     // Public API here
     return {
         get: function(){

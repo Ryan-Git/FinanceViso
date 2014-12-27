@@ -62,11 +62,17 @@
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                 <li><a href  ng-click="append(formula)">对比</a></li>
                                 <li><a href  ng-click="remove(formula)">删除</a></li>
-                                <li class="divider"></li>
-                                <li><a href ng-click="openEditor(formula)">更多指标...</a></li>
                             </ul>
                         </div>
                     </div>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button" ng-click="openEditor(formula)">股票</button>
+                          <button class="btn btn-default" type="button" ng-click="openEditor(formula)">财务</button>
+                          <button class="btn btn-default" type="button" ng-click="openEditor(formula)">自定义</button>
+                        </span>
+                    </div>
+                  <br/>
                 </li>
             </ul>
         </div>
