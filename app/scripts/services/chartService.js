@@ -91,6 +91,93 @@ angular.module('financeVisoApp')
             chart.redraw();
         },
 
+        tick: function(data, id){
+          // set the allowed units for data grouping
+          var groupingUnits = [[
+            'week',                         // unit name
+            [1]                             // allowed multiples
+          ], [
+            'month',
+            [1, 2, 3, 4, 6]
+          ]];
+          if (typeof(chart) == 'undefined'){
+
+            // create the chart
+            $('#highCharts').highcharts('StockChart', {
+
+              rangeSelector: {
+                selected: 1
+              },
+
+              title: {
+                text: 'AAPL'
+              },
+
+              yAxis: [{
+                labels: {
+                  align: 'right',
+                  x: -3
+                },
+                title: {
+                  text: 'OHLC'
+                },
+                height: '60%',
+                lineWidth: 2
+              }, {
+                labels: {
+                  align: 'right',
+                  x: -3
+                },
+                title: {
+                  text: 'Volume'
+                },
+                top: '65%',
+                height: '35%',
+                offset: 0,
+                lineWidth: 2
+              }],
+
+              series: [{
+                type: 'candlestick',
+                name: 'AAPL',
+                data: data.ohlc,
+                dataGrouping: {
+                  units: groupingUnits
+                }
+              }, {
+                type: 'column',
+                name: 'Volume',
+                data: data.volume,
+                yAxis: 1,
+                dataGrouping: {
+                  units: groupingUnits
+                }
+              }]
+            });
+            chart =  $('#highCharts').highcharts();
+          } else{
+            chart.addSeries({
+              id:  'candlestick' + id,
+              type: 'candlestick',
+              name: 'AAPL',
+              data: data.ohlc,
+              dataGrouping: {
+                units: groupingUnits
+              }
+            });
+            chart.addSeries({
+              id: 'Volume' + id,
+              type: 'column',
+              name: 'Volume',
+              data: data.volume,
+              yAxis: 1,
+              dataGrouping: {
+                units: groupingUnits
+              }
+            });
+            chart.redraw();
+          }
+        },
         number: function(){
           $.each(chart.series,function(i, s){
             s.setCompare('value');

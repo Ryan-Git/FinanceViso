@@ -52,7 +52,7 @@
             <ul class="nav nav-sidebar">
                 <li ng-repeat="formula in formulaList track by $index">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="请输入公式" ng-model="formula.expression" typeahead="index as index.name for index in available">
+                        <input type="text" class="form-control" placeholder="请输入公式" ng-model="formula.expression" typeahead="index for index in available">
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default" tabindex="-1"  ng-click="compare(formula)">叠加</button>
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -67,7 +67,7 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-btn">
-                          <button class="btn btn-default" type="button" ng-click="openEditor(formula)">股票</button>
+                          <button class="btn btn-default" type="button" ng-click="tick(formula)">股票</button>
                           <button class="btn btn-default" type="button" ng-click="openEditor(formula)">财务</button>
                           <button class="btn btn-default" type="button" ng-click="openEditor(formula)">自定义</button>
                         </span>

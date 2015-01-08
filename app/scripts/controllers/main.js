@@ -10,11 +10,7 @@
 angular.module('financeVisoApp')
     .controller('MainCtrl', ['$scope','$modal','$log', 'formulaService', 'chartService', function ($scope, $modal, $log, formulaService, chartService) {
         $scope.formulaList = formulaService.get();
-        $scope.available = [
-            {id: 1, name: '铁路运输业固定资产投资额', url: 'http://115.28.100.71:8881/datagen?type=A03070703'},
-            {id: 2, name: '铁路运输业固定资产投资额_累计增长百分比', url:'http://115.28.100.71:8881/datagen?type=A03070704'},
-            {id: 3, name: '指标2'}
-        ];
+        $scope.available = ['m1()', 'm2()', 'fang()', 'shengz()', 'shangz()','zxb()', 'cyb()', 'zz100()', 'zz500()', 'hs300()'];
 
         $scope.compare = function(formula){
             formula.id = uuid();
@@ -41,6 +37,17 @@ angular.module('financeVisoApp')
             $scope.formulaList.splice($.inArray(formula,$scope.formulaList),1);
         };
 
+        $scope.tick = function(formula){
+          formula.id = uuid();
+          $log.debug('tick: ' + angular.toJson(formula));
+          var result = formulaService.tick(formula);
+          result.then(function(){
+            chartService.tick(formula.data, formula.id);
+          });
+          //TODO
+          formula.expression='APPL';
+          $scope.formulaList.push({expression:'', data:[]});
+        };
         $scope.openEditor = function(formula){
             var editor = $modal.open({
                 templateUrl:'views/indexEditor.html',
@@ -49,7 +56,7 @@ angular.module('financeVisoApp')
             });
 
             editor.result.then(function(data){
-              formula.expression += data;
+              formula.expression += data + '()';
             }, function(){
                 $log.info('Modal dismissed at: ' + new Date());
             });
